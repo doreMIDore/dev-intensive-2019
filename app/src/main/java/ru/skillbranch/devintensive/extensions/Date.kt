@@ -9,8 +9,8 @@ const val HOUR= MINUTES*60
 const val DAY= HOUR*24
 
 fun Date.format(pattern : String = "HH:mm:ss dd.MM.yy") : String {
-    val Date = SimpleDateFormat(pattern, Locale("ru"))
-    return Date.format(this)
+    val date = SimpleDateFormat(pattern, Locale("ru"))
+    return date.format(this)
 }
 
 fun Date.add(value : Int, units: TimeUnits = TimeUnits.SECOND) : Date{
@@ -24,8 +24,17 @@ fun Date.add(value : Int, units: TimeUnits = TimeUnits.SECOND) : Date{
     this.time=time
     return this
 }
-fun Date.humanizeDiff(date:Date = Date()) : String =
-    when (Date().time - this.time) {
+fun Date.humanizeDiff(date:Date = Date()) : String {
+    val diff: Long = if(date.time == Date().time){
+        //сравниваем с внутренним состоянием
+        this.time - Date().time
+    }
+    else{
+        //сравниваем с заданным в параметре
+        date.time - Date().time
+    }
+
+    return  when (diff) {
         in 0..1000 -> "только что"
         in 1000..45000 -> "несколько секунд назад"
         in 45000..75000 -> "минуту назад"
@@ -37,6 +46,7 @@ fun Date.humanizeDiff(date:Date = Date()) : String =
         else -> "более года назад"
     }
 
+}
 
 
 enum class TimeUnits {

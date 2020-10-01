@@ -1,0 +1,10 @@
+# Built application files
+build/
+libs/
+.idea/
+*.iml
+src/test/
+src/androidTest/
+src/main/res/
+src/main/AndoidManifest.xml
+src/main/java/ru/skillbranch/devintensive/MainActivity.kt
